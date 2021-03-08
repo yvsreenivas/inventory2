@@ -1,0 +1,14 @@
+{% extends 'main/base_0.html' %}
+{% load static %}
+
+<!--Block content goes below-->
+
+
+  {% block content %}
+  <style>
+    .jumbotron{
+      padding:0px;
+    }
+  </style>
+    <img src="{% static 'img/with_children.jpg' %}" width='100%' alt="Landing Page">
+  {% endblock %}

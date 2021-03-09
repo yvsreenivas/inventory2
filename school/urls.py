@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
 from core import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,14 +30,15 @@ urlpatterns += [
     path('core/', include('core.urls')),
 ]
 
-#Add URL maps to redirect the base URL to our application
-from django.views.generic import RedirectView
 
 urlpatterns += [
-    path('', RedirectView.as_view(url='core/', permanent=True)),
+    path('', views.home, name='home'),
 ]
 
-from django.conf import settings
-from django.conf.urls.static import static
+
+urlpatterns += [
+    path('stocks/', include('stocks.urls')),
+]
+
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

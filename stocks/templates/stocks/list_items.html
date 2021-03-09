@@ -1,0 +1,75 @@
+{% extends 'base_0.html' %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+{% load humanize %}
+
+<!--Block content goes below-->
+
+{% block extra_head %}
+    <link rel="stylesheet" href="/static/font-awesome/css/font-awesome.min.css">
+{% endblock extra_head %}
+
+
+{% block content %}
+
+<main role="main" class="container-fluid">
+  {% if messages %}
+        <ul class="messages">
+               {% for message in messages %}
+                     <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+               {% endfor %}
+       </ul>
+  {% endif %}
+    <!-- <div class="jumbotron"> -->
+        <div class="header">
+          {{header}}
+        </div>
+        <span class="total_value">Value of Stock:{{total | floatformat:"0" | intcomma}}</span>
+        <form method='POST' action=''>{% csrf_token %}
+            {{form|crispy}}
+                <input type="submit" value='Search'/>
+        </form>
+
+        <br>
+      <div class="display_table">
+        <table class='table'>
+            <thead>
+            <tr>
+                <th>SR.NO</th>
+                <th>CATEGORY</th>
+                <th>SUB CAT.</th>
+                <th>PART NO</th>
+                <th>ITEM NAME</th>
+                <th>STOCK</th>
+                <th>UNITS</th>
+                <th>RATE</th>
+                <th>TIMESTAMP</th>
+                <th>LAST UPDATED</th>
+                <th>REORDER LEVEL</th>
+            </tr>
+            </thead>
+            {% for instance in queryset %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{instance.category}}</td>
+                    <td>{{instance.subcategory}}</td>
+                    <td>{{instance.part_no}}</td>
+                    <td><a href="{% url 'update_items' instance.id %}">{{instance.item_name}}</a></td>
+                    <td><a href="{% url 'stock_detail' instance.id %}">{{instance.quantity}}</a></td>
+                    <td>{{instance.units}}</td>
+                    <td>{{instance.rate | intcomma }} </td>
+                    <td>{{instance.timestamp}}</td>
+                    <td>{{instance.last_updated}}</td>
+                    <td>{{instance.reorder_level}}</td>
+                </tr>
+
+            {% endfor %}
+        </table>
+    </div>
+
+    <!-- </div> -->
+  </main>
+
+
+
+{% endblock %}

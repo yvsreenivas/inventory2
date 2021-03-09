@@ -1,0 +1,17 @@
+{% extends 'base_0.html' %}
+<!--Block content goes below-->
+{% load crispy_forms_tags %}
+{% load static %}
+
+
+{% block content %}
+<link href="{% static 'css/update_item_master.css'  %}" rel="stylesheet" type="text/css">
+      <div class="header">
+          {{header}}
+      </div>
+      <form method='POST' action=''>{% csrf_token %}
+        {{form|crispy}}
+        <input type="submit" value='Save'/>
+      </form>
+
+  {% endblock content %}

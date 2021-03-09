@@ -1,4 +1,4 @@
-{% extends 'main/base_login.html' %}
+{% extends 'base_login.html' %}
 {% load static %}
 {% block navbar %}
 {% endblock navbar %}
@@ -18,7 +18,7 @@
       				</div> -->
       			</div>
       			<div class="card-body">
-              <form method="post" action="{% url 'stocks:user_login' %}" >
+              <form method="post" action="{% url 'core:user_login' %}" >
               {% csrf_token %}
       					<div class="input-group form-group">
       						<div class="input-group-prepend">

@@ -1,0 +1,49 @@
+{% extends "base_0.html" %}
+
+{% block content %}
+  <h1>Part: {{ partsmaster.item_name }}</h1>
+
+  <p><strong>Partno:</strong> {{ partsmaster.part_no }} </p>
+  <p><strong>Item No:</strong> {{ partsmaster.item_no }}</p>
+  <p><strong>Quantity:</strong> {{ partsmaster.quantity }}</p>
+
+  <div style="margin-left:20px;margin-top:20px">
+    <h4>Receipts</h4>
+
+    {% for part in partsmaster.issues_set.all %}
+      <hr>
+      <p class="{% if copy.status == 'a' %}text-success{% elif copy.status == 'm' %}text-danger{% else %}text-warning{% endif %}">
+        {{ part.issue_quantity }} : {{ part.last_updated}} <span class="text-muted"><strong>Id:</strong> {{ part.id }}</span>
+      </p>
+    {% endfor %}
+  </div>
+
+  <div style="margin-left:20px;margin-top:20px">
+    <h4>Issues</h4>
+
+    {% for part in partsmaster.issues_set.all %}
+      <hr>
+      <p class="{% if copy.status == 'a' %}text-success{% elif copy.status == 'm' %}text-danger{% else %}text-warning{% endif %}">
+        {{ part.issue_quantity }} : {{ part.last_updated}} <span class="text-muted"><strong>Id:</strong> {{ part.id }}</span>
+      </p>
+    {% endfor %}
+  </div>
+
+{% endblock %}
+{% block pagination %}
+    {% if is_paginated %}
+        <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+                <span class="page-current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}
+  {% endblock %}

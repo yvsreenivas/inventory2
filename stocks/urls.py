@@ -11,7 +11,9 @@ urlpatterns = [
     path('issue_items/<str:pk>/', views.issue_items, name="issue_items"),
     path('issue_items2/<str:pk>/', views.issue_items2, name="issue_items2"),
     path('receive_items/<str:pk>/', views.receive_items, name="receive_items"),
+    path('parts_create/', views.PartsMasterCreateView.as_view(), name='parts_create'),
     path('parts/', views.PartsMasterListView.as_view(), name='parts'),
     path('part/<int:pk>', views.PartsMasterDetailView.as_view(),
-         name='part-detail'),
+         name='part-detail'),  
+
 ]

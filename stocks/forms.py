@@ -1,6 +1,45 @@
 from django import forms
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Submit, Row, Column
 from stocks.models import PartsMaster, Issues
 # from django.contrib.auth.models import User
+
+
+category_choice = (
+        ('Asset', 'Asset'),
+        ('Consumables', 'Consumables'),
+    )
+
+units_choice = (
+            ('Kgs', 'Kgs'),
+            ('gms', 'Gms'),
+            ('Nos', 'Nos'),
+            ('Ltrs', 'Ltrs'),
+            ('Mtrs', 'Mtrs')
+    )
+
+class PMCreateForm(forms.ModelForm):
+    class Meta:
+        model = PartsMaster
+        fields = ['category', 'subcategory', 'part_no', 'item_no']
+        widgets = {'part_no': forms.TextInput(attrs={'data-mask':
+                                                     "000-00-00000-00"})}
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('category', css_class='form-group col-md-6 mb-0'),
+                Column('subcategory', css_class='form-group col-md-6 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('part_no', css_class='form-group col-md-6 mb-0'),
+                Column('item_no', css_class='form-group col-md-6 mb-0'),
+                css_class='form-row'
+            ),
+        )
 
 
 class PartsMasterCreateForm(forms.ModelForm):

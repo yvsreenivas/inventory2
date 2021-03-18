@@ -1,7 +1,6 @@
 from django.contrib import admin
 from .forms import PartsMasterCreateForm
-from .models import SubCategory, PartsMaster, Indent, Issues
-
+from .models import SubCategory, PartsMaster, Issues
 
 class PartsCreateFormAdmin(admin.ModelAdmin):
     list_display = ['id', 'category', 'subcategory', 'part_no', 'item_name',
@@ -19,4 +18,3 @@ class IssuesAdmin(admin.ModelAdmin):
 admin.site.register(SubCategory)
 admin.site.register(PartsMaster, PartsCreateFormAdmin)
 admin.site.register(Issues)
-admin.site.register(Indent)

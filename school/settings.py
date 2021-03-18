@@ -38,6 +38,8 @@ ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 # Application definition
 
 INSTALLED_APPS = [
+    'stocks.apps.StocksConfig',
+    'indent.apps.IndentConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -47,7 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'core.apps.CoreConfig',
     'crispy_forms',
-    'stocks.apps.StocksConfig'
+    'dynamic_formsets',
 ]
 
 MIDDLEWARE = [

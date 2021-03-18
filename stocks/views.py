@@ -3,7 +3,7 @@ from django.contrib import messages
 from .models import PartsMaster, SubCategory, Issues
 from .forms import PartsMasterCreateForm, PartsMasterSearchForm
 from .forms import PartsMasterUpdateForm, IssueForm, ReceiveForm, \
-     IssueCreateForm
+     IssueCreateForm, PMCreateForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
@@ -11,6 +11,8 @@ from django.contrib.auth.decorators import login_required
 import csv
 from django.db.models import Sum, F, FloatField
 from django.views import generic
+from django import forms
+from django.forms import modelformset_factory
 
 
 @login_required
@@ -63,7 +65,8 @@ def list_items(request):
 
 @login_required
 def add_items(request):
-    form = PartsMasterCreateForm(request.POST or None)
+#    form = PartsMasterCreateForm(request.POST or None)
+    form = PMCreateForm(request.POST or None)
 
     if form.is_valid():
         instance = form.save(commit=False)
@@ -204,3 +207,10 @@ class PartsMasterListView(generic.ListView):
 
 class PartsMasterDetailView(generic.DetailView):
     model = PartsMaster
+
+class PartsMasterCreateView(generic.CreateView):
+    model = PartsMaster
+    fields = ['category', 'subcategory',
+                                 'part_no', 'item_no', 'item_name',
+                                 'quantity', 'units', 'rate']
+    widgets = {'part_no': forms.TextInput(attrs={'data-mask':"000-00-00000-00"})}

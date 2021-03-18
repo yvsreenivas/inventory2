@@ -51,6 +51,7 @@ class IndentMasterCreate(CreateView):
     def form_valid(self, form):
         context = self.get_context_data()
         indents = context['indents']
+        print("******------")
         with transaction.atomic():
             print("*******************************")
             form.instance.indented_by = self.request.user
@@ -58,7 +59,10 @@ class IndentMasterCreate(CreateView):
             if indents.is_valid():
                 indents.instance = self.object
                 indents.save()
+            else:
+                print("form not valid")
+
         return super(IndentMasterCreate, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy('school_indents:indentmaster_detail', kwargs={'id': self.object.id})
+        return reverse_lazy('school_indents:indentmaster_detail', kwargs={'pk': self.object.id})
